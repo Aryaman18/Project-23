@@ -16,8 +16,6 @@ function setup() {
 	rectMode(CENTER);
 
 
-	
-
 	packageSprite=createSprite(width/2, 80, 10,10);
 	packageSprite.addImage(packageIMG)
 	packageSprite.scale=0.2
@@ -39,12 +37,6 @@ function setup() {
 	World.add(world, packageBody);
 
 	Matter.Body.translate(packageBody, {x:-20,y:0})
-
-
-	packageSprite.x = packageBody.position.x;
-	packageSprite.y = packageBody.position.y;
-
-	
 
 	//Create a Ground
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
@@ -72,11 +64,6 @@ function setup() {
  	boxRightBody = Bodies.rectangle(boxPosition+200-20 , boxY, 20,100 , {isStatic:true} );
  	World.add(world, boxRightBody);
 
-
-	 
-	
-
-
 	Engine.run(engine);
   
 }
@@ -86,33 +73,24 @@ function draw() {
   rectMode(CENTER);
   background(0);
 
- 
-
-  if(keyCode === LEFT_ARROW) {
-	  helicopterSprite.x = helicopterSprite.x-20;
-  }
-
-  if(keyCode === RIGHT_ARROW) {
-	helicopterSprite.x = helicopterSprite.x+20;
-}
-
-
   if(keyCode === DOWN_ARROW) {
 	Matter.Body.setStatic(packageBody,false);
   }
  
+  if (keyCode === LEFT_ARROW) { 
+	  helicopterSprite.x=helicopterSprite.x-20; translation={x:-20,y:0} 
+	  Matter.Body.translate(packageBody, translation)
+	 } 
+
+  if (keyCode === RIGHT_ARROW) { 
+		helicopterSprite.x=helicopterSprite.x+20; translation={x:+20,y:0} 
+		Matter.Body.translate(packageBody, translation)
+	   } 
  
-
-
-
-
-
- 
-  
+  packageSprite.x = packageBody.position.x;
+  packageSprite.y = packageBody.position.y;
 
   
   drawSprites();
   
-  
- 
 }
